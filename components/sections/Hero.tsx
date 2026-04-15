@@ -66,7 +66,7 @@ export function Hero() {
         data-gsap-delay="0.16"
       >
         <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground">
-          {new Date().getFullYear()} - Napoli, IT
+          {new Date().getFullYear()} - Puglia, IT
         </span>
         <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground">
           {t(hero.roleLabel)}
