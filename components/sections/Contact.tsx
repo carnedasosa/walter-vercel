@@ -38,13 +38,13 @@ export function Contact() {
       data-gsap-section
       aria-labelledby="contact-heading"
     >
-      {/* Background accent */}
+      {/* Atmosphere */}
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 50% 50% at 100% 100%, rgba(255,255,255,0.06) 0%, transparent 70%)',
+            'radial-gradient(ellipse 50% 50% at 100% 100%, color-mix(in srgb, var(--accent) 4%, transparent) 0%, transparent 70%)',
         }}
       />
 
@@ -121,16 +121,16 @@ export function Contact() {
           {/* Right: Form */}
           <div>
             {status === 'success' ? (
-              <div className="flex h-full flex-col items-start justify-center gap-4 border border-foreground/45 bg-card/90 p-10">
-                <div className="font-mono text-xs tracking-widest text-foreground/90 uppercase">
+              <div className="flex h-full flex-col items-start justify-center gap-4 glass relative p-10 rounded-2xl">
+                <div className="font-mono text-xs tracking-widest text-accent uppercase">
                   [OK] {t(contactT.successTitle)}
                 </div>
-                <p className="font-sans text-lg font-bold text-foreground/92">
+                <p className="font-sans text-lg font-bold text-foreground">
                   {t(contactT.successMsg)}
                 </p>
                 <button
                   onClick={() => { setStatus('idle'); setForm({ name: '', email: '', message: '' }) }}
-                  className="mt-4 font-mono text-xs tracking-widest uppercase text-muted-foreground transition-colors hover:text-foreground underline"
+                  className="mt-4 font-mono text-xs tracking-widest uppercase text-muted-foreground transition-colors hover:text-accent underline"
                 >
                   {t(contactT.sendAnother)}
                 </button>
@@ -158,7 +158,7 @@ export function Contact() {
                     value={form.name}
                     onChange={handleChange}
                     placeholder={t(contactT.namePlaceholder)}
-                    className="border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-foreground focus:outline-none"
+                    className="border border-border/60 bg-white/3 px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/30 transition-all focus:border-accent focus:bg-white/5 focus:outline-none rounded-xl"
                   />
                 </div>
 
@@ -178,7 +178,7 @@ export function Contact() {
                     value={form.email}
                     onChange={handleChange}
                     placeholder={t(contactT.emailPlaceholder)}
-                    className="border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-foreground focus:outline-none"
+                    className="border border-border/60 bg-white/3 px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/30 transition-all focus:border-accent focus:bg-white/5 focus:outline-none rounded-xl"
                   />
                 </div>
 
@@ -198,7 +198,7 @@ export function Contact() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder={t(contactT.messagePlaceholder)}
-                    className="resize-none border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-foreground focus:outline-none"
+                    className="resize-none border border-border/60 bg-white/3 px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/30 transition-all focus:border-accent focus:bg-white/5 focus:outline-none rounded-xl"
                   />
                 </div>
 
@@ -211,7 +211,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="group relative inline-flex items-center justify-between border border-foreground/85 bg-foreground/95 px-8 py-4 font-mono text-xs tracking-widest text-background uppercase transition-all duration-300 hover:bg-transparent hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  className="group glass relative inline-flex items-center justify-between px-8 py-4 font-mono text-xs tracking-widest text-foreground uppercase transition-all duration-300 hover:bg-white/5 hover:text-accent rounded-full disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span>
                     {status === 'sending' ? t(contactT.sending) : t(contactT.submit)}

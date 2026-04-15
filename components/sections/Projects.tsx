@@ -22,10 +22,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       aria-label={project.title[lang]}
     >
       {/* Image */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden md:w-1/2">
+      <div className="relative aspect-[4/3] w-full overflow-hidden md:w-1/2 rounded-2xl border border-glass">
         <div
           className={`absolute inset-0 transition-opacity duration-700 ${imageLoaded ? 'opacity-0' : 'opacity-100'}`}
-          style={{ background: 'linear-gradient(135deg, #111 0%, #1a1a1a 100%)' }}
+          style={{ background: 'linear-gradient(135deg, #050505 0%, #111 100%)' }}
           aria-hidden="true"
         />
         <Image
@@ -38,12 +38,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         />
         {/* Accent overlay */}
         <div
-          className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-20"
+          className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-10"
           style={{ background: `radial-gradient(circle at center, ${project.accentColor}, transparent 70%)` }}
           aria-hidden="true"
         />
         {/* Year badge */}
-        <div className="absolute bottom-4 left-4 font-mono text-xs tracking-widest text-white/60">
+        <div className="glass absolute bottom-4 left-4 font-mono text-[10px] tracking-widest text-white/80 px-3 py-1 rounded-full">
           {project.year}
         </div>
       </div>
@@ -53,15 +53,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {/* Tags */}
         <div className="flex flex-wrap gap-2">
           <span
-            className="font-mono text-[10px] tracking-[0.3em] uppercase px-2 py-1 border"
-            style={{ borderColor: project.accentColor, color: project.accentColor }}
+            className="font-mono text-[10px] tracking-[0.2em] uppercase px-3 py-1.5 border rounded-full glass relative"
+            style={{ borderColor: `${project.accentColor}40`, color: project.accentColor }}
           >
             {project.category}
           </span>
           {project.tags.slice(0, 2).map((tag) => (
             <span
               key={tag}
-              className="font-mono text-[10px] tracking-[0.2em] uppercase px-2 py-1 border border-border text-muted-foreground"
+              className="font-mono text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 border border-border/40 text-muted-foreground/80 rounded-full"
             >
               {tag}
             </span>

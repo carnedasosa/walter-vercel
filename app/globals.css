@@ -4,82 +4,80 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Neutral Dark Theme */
-  --background: #0b0b0b;
-  --foreground: #f5f5f5;
-  --card: #121212;
-  --card-foreground: #f5f5f5;
-  --popover: #121212;
-  --popover-foreground: #f5f5f5;
+  /* Apple OLED Dark Theme */
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #1c1c1e;
+  --card-foreground: #ffffff;
+  --popover: #1c1c1e;
+  --popover-foreground: #ffffff;
   --primary: #ffffff;
-  --primary-foreground: #0b0b0b;
-  --secondary: #1d1d1d;
-  --secondary-foreground: #f0f0f0;
-  --muted: #1a1a1a;
-  --muted-foreground: #9b9b9b;
-  --accent: #2b2b2b;
-  --accent-foreground: #f5f5f5;
-  --destructive: #3a3a3a;
-  --destructive-foreground: #f5f5f5;
-  --border: #2a2a2a;
-  --input: #1f1f1f;
-  --ring: #6b6b6b;
-  --radius: 0.125rem;
-  --sidebar: #121212;
-  --sidebar-foreground: #f5f5f5;
-  --sidebar-primary: #ffffff;
-  --sidebar-primary-foreground: #0b0b0b;
-  --sidebar-accent: #1d1d1d;
-  --sidebar-accent-foreground: #f5f5f5;
-  --sidebar-border: #2a2a2a;
-  --sidebar-ring: #6b6b6b;
+  --primary-foreground: #000000;
+  --secondary: #2c2c2e;
+  --secondary-foreground: #ebebeb;
+  --muted: #1c1c1e;
+  --muted-foreground: #8e8e93;
+  --accent: #f97316;
+  --accent-foreground: #ffffff;
+  --destructive: #ff453a;
+  --destructive-foreground: #ffffff;
+  --border: #2c2c2e;
+  --input: #1c1c1e;
+  --ring: #f97316;
+  --radius: 1.25rem;
+
+  /* Reflective Glass Design System */
+  --glass-bg: rgba(250, 250, 250, 0.22);
+  --glass-blur: 20px;
+  --glass-saturate: 180%;
+  --glass-radius: 20px;
+
+  --glass-shadow: -4px 12px 32px 0 rgba(0, 0, 0, 0.25);
+  --glass-inset-highlight: inset 0 0 6px 0px rgba(255, 255, 255, 0.35);
+
+  --glass-reflection-1: linear-gradient(
+    to left top,
+    rgba(255, 255, 255, 0.225) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
+
+  --glass-reflection-2: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.135) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
 @theme inline {
-  --font-sans: var(--font-space-grotesk), 'Space Grotesk', sans-serif;
-  --font-mono: var(--font-space-mono), 'Space Mono', monospace;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-mono: var(--font-mono), monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 2px);
+  --color-border: var(--border);
+  --color-glass: var(--glass-bg);
+  --radius-sm: calc(var(--radius) - 0.5rem);
   --radius-md: var(--radius);
-  --radius-lg: calc(var(--radius) + 4px);
-  --radius-xl: calc(var(--radius) + 8px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+  --radius-xl: calc(var(--radius) + 0.5rem);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-accent/30;
   }
+
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    width: 100%;
+    overflow-x: hidden;
   }
 }
 
@@ -92,12 +90,15 @@ html.has-custom-cursor body {
 ::-webkit-scrollbar {
   width: 3px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--background);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border);
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
 }
@@ -132,6 +133,7 @@ html.has-custom-cursor body {
   transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
   mix-blend-mode: difference;
 }
+
 .cursor-follower {
   position: fixed;
   width: 32px;
@@ -144,9 +146,60 @@ html.has-custom-cursor body {
   transition: all 0.15s ease;
 }
 
-@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+@media (hover: none),
+(pointer: coarse),
+(prefers-reduced-motion: reduce) {
+
   .custom-cursor,
   .cursor-follower {
     display: none;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    border-radius: var(--glass-radius);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    box-shadow:
+      var(--glass-shadow),
+      var(--glass-inset-highlight);
+    overflow: hidden;
+  }
+
+  .navbar-glass-refined {
+    --tw-backdrop-blur: blur(24px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur) saturate(150%);
+    backdrop-filter: var(--tw-backdrop-blur) saturate(150%);
+    background-color: color-mix(in srgb, var(--background) 60%, transparent);
+  }
+
+  .border-border-30 {
+    border-color: color-mix(in srgb, var(--border) 30%, transparent);
+  }
+
+  .glass::before,
+  .glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .glass::before {
+    background: var(--glass-reflection-1);
+    z-index: 1;
+  }
+
+  .glass::after {
+    background: var(--glass-reflection-2);
+    z-index: 1;
+  }
+
+  .glass > * {
+    position: relative;
+    z-index: 2;
   }
 }

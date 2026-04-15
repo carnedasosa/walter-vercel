@@ -26,23 +26,22 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ${
-          scrolled ? 'border-b border-border bg-background/80 backdrop-blur-xl' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'navbar-glass-refined border-b border-border-30 py-4' : 'bg-transparent py-6'
+          }`}
       >
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10"
+          className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-10"
           aria-label="Main navigation"
         >
           {/* Logo */}
           <a
             href="#"
-            className="font-mono text-xs font-bold tracking-[0.2em] text-foreground uppercase"
+            className="font-mono text-xs font-bold tracking-[0.2em] text-foreground uppercase group"
             aria-label={nav.homeAria[lang]}
             data-gsap-intro
             data-gsap-delay="0.05"
           >
-            WALTER <span className="text-muted-foreground">IANIERI</span>
+            WALTER <span className="text-accent group-hover:text-foreground transition-colors duration-300">IANIERI</span>
           </a>
 
           {/* Desktop links */}
@@ -70,11 +69,11 @@ export function Navigation() {
             <button
               onClick={toggleLang}
               aria-label={`Switch to ${lang === 'it' ? 'English' : 'Italian'}`}
-              className="font-mono text-xs tracking-widest text-muted-foreground uppercase transition-colors hover:text-foreground"
+              className="font-mono text-xs tracking-widest text-muted-foreground uppercase transition-colors hover:text-accent"
             >
-              <span className={lang === 'it' ? 'text-foreground' : 'text-muted-foreground'}>IT</span>
-              <span className="mx-1 text-border">/</span>
-              <span className={lang === 'en' ? 'text-foreground' : 'text-muted-foreground'}>EN</span>
+              <span className={lang === 'it' ? 'text-accent' : 'text-muted-foreground'}>IT</span>
+              <span className="mx-1 opacity-20">/</span>
+              <span className={lang === 'en' ? 'text-accent' : 'text-muted-foreground'}>EN</span>
             </button>
 
             {/* Mobile menu toggle */}
@@ -100,9 +99,8 @@ export function Navigation() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col justify-center bg-background px-10 transition-all duration-500 md:hidden ${
-          menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-        }`}
+        className={`fixed inset-0 z-40 flex flex-col justify-center bg-background px-10 transition-all duration-500 md:hidden ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+          }`}
         aria-hidden={!menuOpen}
       >
         <ul className="flex flex-col gap-8" role="list">

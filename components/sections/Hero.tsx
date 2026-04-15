@@ -51,11 +51,11 @@ export function Hero() {
         }}
       />
 
-      {/* Accent orb */}
+      {/* Atmosphere / Aurora */}
       <div
-        className="pointer-events-none absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full opacity-10"
+        className="pointer-events-none absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full opacity-5 blur-[120px]"
         style={{
-          background: 'radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
@@ -78,10 +78,10 @@ export function Hero() {
       <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center py-16">
         {/* Discipline ticker */}
         <div className="mb-6 flex items-center gap-3">
-          <span className="block h-px w-10 bg-muted-foreground/60" aria-hidden="true" />
+          <span className="block h-px w-10 bg-accent/40" aria-hidden="true" />
           <span
             key={currentDiscipline}
-            className="font-mono animate-in fade-in text-xs tracking-[0.3em] text-foreground/85 uppercase duration-500"
+            className="font-mono animate-in fade-in text-xs tracking-[0.3em] text-accent uppercase duration-500"
           >
             {disciplines[currentDiscipline]}
           </span>
@@ -118,7 +118,7 @@ export function Hero() {
         <div className="mt-12 flex items-center gap-8" data-gsap-intro data-gsap-delay="0.42">
           <a
             href="#projects"
-            className="group relative inline-flex items-center gap-3 border border-foreground/80 px-8 py-4 font-mono text-xs tracking-widest text-foreground/90 uppercase transition-all duration-300 hover:border-foreground hover:text-foreground"
+            className="glass group relative inline-flex items-center gap-3 px-8 py-4 font-mono text-xs tracking-widest text-foreground/90 uppercase transition-all duration-300 hover:bg-white/5 hover:text-accent rounded-full"
           >
             {t(hero.cta)}
             <svg

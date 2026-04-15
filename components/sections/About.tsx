@@ -27,13 +27,13 @@ export function About() {
       data-gsap-section
       aria-labelledby="about-heading"
     >
-      {/* Background accent */}
+      {/* Atmosphere */}
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 40% 60% at 0% 50%, rgba(255,255,255,0.05) 0%, transparent 70%)',
+            'radial-gradient(ellipse 40% 60% at 0% 50%, color-mix(in srgb, var(--accent) 5%, transparent) 0%, transparent 70%)',
         }}
       />
 
@@ -71,11 +71,11 @@ export function About() {
             </p>
 
             {/* Approach */}
-            <div className="border-l-2 border-foreground/60 pl-5 py-2">
-              <p className="mb-1 font-mono text-xs tracking-widest text-foreground/92 uppercase">
+            <div className="border-l-2 border-accent/40 pl-5 py-2">
+              <p className="mb-1 font-mono text-[10px] tracking-widest text-accent uppercase">
                 {t(aboutT.approachLabel)}
               </p>
-              <p className="font-sans text-sm text-foreground/88">
+              <p className="font-sans text-sm text-foreground/80 leading-relaxed">
                 {t(aboutT.approach)}
               </p>
             </div>
@@ -90,7 +90,7 @@ export function About() {
                   <span
                     key={skill}
                     role="listitem"
-                    className="border border-border px-3 py-1 font-mono text-xs tracking-wide text-foreground/72 transition-colors hover:border-foreground/80 hover:text-foreground"
+                    className="glass relative border-border/40 px-4 py-1.5 font-mono text-[10px] tracking-wide text-foreground/70 transition-all hover:border-accent/40 hover:text-accent rounded-full"
                   >
                     {skill}
                   </span>
@@ -101,7 +101,7 @@ export function About() {
             {/* Download PDF */}
             <a
               href="/assets/walter-ianieri-portfolio.pdf"
-              className="group inline-flex items-center gap-3 self-start border border-foreground/70 bg-foreground/5 px-8 py-4 font-mono text-xs tracking-widest text-foreground/90 uppercase transition-all duration-300 hover:bg-foreground hover:text-background"
+              className="glass relative group inline-flex items-center gap-3 self-start px-8 py-4 font-mono text-xs tracking-widest text-foreground/90 uppercase transition-all duration-300 hover:bg-white/5 hover:text-accent rounded-full"
               download
               aria-label={t(aboutT.downloadAria)}
             >
@@ -118,29 +118,20 @@ export function About() {
           </div>
 
           {/* Right: Portrait */}
-          <div className="relative">
-            <div className="relative aspect-[3/4] overflow-hidden">
+          <div className="relative group">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-glass">
               <Image
                 src="/assets/about/walter-portrait.png"
                 alt="Walter Ianieri — Industrial Designer and Innovator"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              {/* Corner accents */}
-              <div
-                className="absolute top-0 right-0 h-12 w-12 border-t border-r border-foreground/60"
-                aria-hidden="true"
-              />
-              <div
-                className="absolute bottom-0 left-0 h-12 w-12 border-b border-l border-foreground/60"
-                aria-hidden="true"
               />
             </div>
 
             {/* Floating stat card */}
-            <div className="absolute -bottom-6 -right-6 border border-border bg-card p-6 md:p-8">
-              <div className="font-sans text-4xl font-black text-foreground/92">12+</div>
+            <div className="glass absolute -bottom-6 -right-6 p-6 md:p-8 rounded-2xl shadow-2xl">
+              <div className="font-sans text-4xl font-black text-accent">12+</div>
               <div className="mt-1 font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
                 {t(aboutT.experienceLabel)}
               </div>

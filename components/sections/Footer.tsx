@@ -18,8 +18,8 @@ export function Footer() {
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           {/* Left */}
           <div className="flex flex-col gap-3">
-            <div className="font-mono text-lg font-bold tracking-[0.15em] uppercase text-foreground">
-              WALTER <span className="text-muted-foreground">IANIERI</span>
+            <div className="font-mono text-lg font-bold tracking-[0.15em] uppercase text-foreground group cursor-default">
+              WALTER <span className="text-accent group-hover:text-foreground transition-all duration-500">IANIERI</span>
             </div>
             <p className="font-mono text-xs tracking-wide text-muted-foreground">
               {t(footerT.tagline)}
@@ -38,7 +38,7 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="font-mono text-xs tracking-widest uppercase text-muted-foreground transition-colors hover:text-foreground"
+                    className="font-mono text-xs tracking-widest uppercase text-muted-foreground/60 transition-colors hover:text-accent"
                   >
                     {link.label}
                   </a>

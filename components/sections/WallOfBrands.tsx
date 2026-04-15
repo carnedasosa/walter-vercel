@@ -15,13 +15,13 @@ export function WallOfBrands() {
       data-gsap-section
       aria-labelledby="brands-heading"
     >
-      {/* Background accent */}
+      {/* Atmosphere */}
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 40% at 50% 50%, color-mix(in srgb, var(--accent) 2%, transparent) 0%, transparent 70%)',
         }}
       />
 
@@ -54,11 +54,11 @@ export function WallOfBrands() {
               {Object.entries(sectors).map(([key, sector]) => (
                 <div key={key} className="flex items-center gap-2">
                   <span
-                    className="block h-1.5 w-4"
+                    className="block h-1.5 w-4 rounded-full"
                     style={{ background: sector.color }}
                     aria-hidden="true"
                   />
-                  <span className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
+                  <span className="font-mono text-[9px] tracking-widest uppercase text-muted-foreground/60">
                     {sector.label}
                   </span>
                 </div>
@@ -69,7 +69,7 @@ export function WallOfBrands() {
 
         {/* Brands grid */}
         <div
-          className="mt-16 grid grid-cols-2 gap-px bg-border md:grid-cols-3"
+          className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3"
           role="list"
           aria-label="Brand collaborations"
           data-gsap-stagger
@@ -80,11 +80,11 @@ export function WallOfBrands() {
               <div
                 key={brand.id}
                 role="listitem"
-                className="group relative flex flex-col gap-3 bg-background p-8 transition-colors duration-300 hover:bg-card"
+                className="glass group relative flex flex-col gap-3 p-8 transition-all duration-300 hover:bg-white/5 rounded-2xl"
               >
                 {/* Accent line */}
                 <div
-                  className="absolute top-0 left-0 h-px w-0 transition-all duration-500 group-hover:w-full"
+                  className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-0 transition-all duration-500 group-hover:w-1/2"
                   style={{ background: sectorColor }}
                   aria-hidden="true"
                 />
