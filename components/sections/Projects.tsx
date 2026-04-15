@@ -74,7 +74,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {String(index + 1).padStart(2, '0')}
           </span>
           <h2
-            className="mt-1 font-sans text-4xl font-black tracking-tight text-foreground transition-colors duration-300 group-hover:text-neon-red md:text-5xl"
+            className="mt-1 font-sans text-4xl font-black tracking-tight text-foreground transition-colors duration-300 group-hover:[color:var(--hover-color)] md:text-5xl"
             style={{ '--hover-color': project.accentColor } as React.CSSProperties}
           >
             {project.title[lang]}
@@ -104,7 +104,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {/* CTA */}
         <a
           href={`#${project.slug}`}
-          className="group/btn mt-2 inline-flex items-center gap-3 font-mono text-xs tracking-widest uppercase text-foreground transition-colors hover:text-neon-red"
+          className="group/btn mt-2 inline-flex items-center gap-3 font-mono text-xs tracking-widest text-foreground uppercase transition-colors hover:[color:var(--hover-color)]"
+          style={{ '--hover-color': project.accentColor } as React.CSSProperties}
           aria-label={`${t(projT.viewProject)} ${project.title[lang]}`}
         >
           {t(projT.viewProject)}

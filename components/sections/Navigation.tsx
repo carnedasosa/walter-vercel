@@ -42,7 +42,7 @@ export function Navigation() {
             data-gsap-intro
             data-gsap-delay="0.05"
           >
-            WALTER <span className="text-neon-red">IANIERI</span>
+            WALTER <span className="text-muted-foreground">IANIERI</span>
           </a>
 
           {/* Desktop links */}
@@ -70,7 +70,7 @@ export function Navigation() {
             <button
               onClick={toggleLang}
               aria-label={`Switch to ${lang === 'it' ? 'English' : 'Italian'}`}
-              className="font-mono text-xs tracking-widest text-muted-foreground uppercase transition-colors hover:text-neon-red"
+              className="font-mono text-xs tracking-widest text-muted-foreground uppercase transition-colors hover:text-foreground"
             >
               <span className={lang === 'it' ? 'text-foreground' : 'text-muted-foreground'}>IT</span>
               <span className="mx-1 text-border">/</span>
@@ -111,7 +111,7 @@ export function Navigation() {
               <a
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="font-sans text-4xl font-bold tracking-tight text-foreground transition-colors hover:text-neon-red"
+                className="font-sans text-4xl font-bold tracking-tight text-foreground transition-colors hover:text-muted-foreground"
                 style={{ transitionDelay: `${i * 50}ms` }}
               >
                 {link.label}

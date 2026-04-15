@@ -19,7 +19,7 @@ export function Footer() {
           {/* Left */}
           <div className="flex flex-col gap-3">
             <div className="font-mono text-lg font-bold tracking-[0.15em] uppercase text-foreground">
-              WALTER <span className="text-neon-red">IANIERI</span>
+              WALTER <span className="text-muted-foreground">IANIERI</span>
             </div>
             <p className="font-mono text-xs tracking-wide text-muted-foreground">
               {t(footerT.tagline)}

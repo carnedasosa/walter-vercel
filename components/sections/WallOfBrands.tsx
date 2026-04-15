@@ -21,7 +21,7 @@ export function WallOfBrands() {
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,212,255,0.04) 0%, transparent 70%)',
+            'radial-gradient(ellipse 60% 40% at 50% 50%, rgba(255,255,255,0.05) 0%, transparent 70%)',
         }}
       />
 
@@ -40,7 +40,7 @@ export function WallOfBrands() {
             className="text-balance font-sans text-5xl font-black leading-tight tracking-tight text-foreground md:text-6xl"
           >
             {t(brandsT.title).split('\n').map((line, i) => (
-              <span key={i} className={`block ${i === 1 ? 'text-neon-blue glow-blue' : ''}`}>
+              <span key={i} className={`block ${i === 1 ? 'text-primary' : ''}`}>
                 {line}
               </span>
             ))}

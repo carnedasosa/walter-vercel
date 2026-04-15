@@ -18,6 +18,7 @@ const skills = [
 export function About() {
   const { t } = useLanguage()
   const aboutT = translations.about
+  const titleLines = t(aboutT.title).split('\n')
 
   return (
     <section
@@ -32,7 +33,7 @@ export function About() {
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 40% 60% at 0% 50%, rgba(201,168,76,0.04) 0%, transparent 70%)',
+            'radial-gradient(ellipse 40% 60% at 0% 50%, rgba(255,255,255,0.05) 0%, transparent 70%)',
         }}
       />
 
@@ -52,23 +53,29 @@ export function About() {
               id="about-heading"
               className="text-balance font-sans text-5xl font-black leading-tight tracking-tight text-foreground md:text-6xl"
             >
-              {t(aboutT.title).split('\n').map((line, i) => (
-                <span key={i} className={`block ${i === 1 ? 'text-neon-gold glow-gold' : ''}`}>
-                  {line}
+              {titleLines.map((line, i) => (
+                <span key={i} className="block">
+                  {i === 0 ? (
+                    <span className="text-foreground/74">{line}</span>
+                  ) : i === 1 ? (
+                    <span className="text-foreground">{line}</span>
+                  ) : (
+                    <span className="text-foreground/84">{line}</span>
+                  )}
                 </span>
               ))}
             </h2>
 
-            <p className="font-sans text-base leading-relaxed text-muted-foreground">
+            <p className="font-sans text-base leading-relaxed text-muted-foreground/95">
               {t(aboutT.bio)}
             </p>
 
             {/* Approach */}
-            <div className="border-l-2 border-neon-gold pl-5 py-2">
-              <p className="font-mono text-xs tracking-widest uppercase text-neon-gold mb-1">
+            <div className="border-l-2 border-foreground/60 pl-5 py-2">
+              <p className="mb-1 font-mono text-xs tracking-widest text-foreground/92 uppercase">
                 {t(aboutT.approachLabel)}
               </p>
-              <p className="font-sans text-sm text-foreground">
+              <p className="font-sans text-sm text-foreground/88">
                 {t(aboutT.approach)}
               </p>
             </div>
@@ -83,7 +90,7 @@ export function About() {
                   <span
                     key={skill}
                     role="listitem"
-                    className="border border-border px-3 py-1 font-mono text-xs tracking-wide text-foreground/80 transition-colors hover:border-neon-gold hover:text-neon-gold"
+                    className="border border-border px-3 py-1 font-mono text-xs tracking-wide text-foreground/72 transition-colors hover:border-foreground/80 hover:text-foreground"
                   >
                     {skill}
                   </span>
@@ -94,7 +101,7 @@ export function About() {
             {/* Download PDF */}
             <a
               href="/assets/walter-ianieri-portfolio.pdf"
-              className="group inline-flex items-center gap-3 border border-neon-gold px-8 py-4 font-mono text-xs tracking-widest uppercase text-neon-gold transition-all duration-300 hover:bg-neon-gold hover:text-background self-start"
+              className="group inline-flex items-center gap-3 self-start border border-foreground/70 bg-foreground/5 px-8 py-4 font-mono text-xs tracking-widest text-foreground/90 uppercase transition-all duration-300 hover:bg-foreground hover:text-background"
               download
               aria-label={t(aboutT.downloadAria)}
             >
@@ -122,18 +129,18 @@ export function About() {
               />
               {/* Corner accents */}
               <div
-                className="absolute top-0 right-0 h-12 w-12 border-t border-r border-neon-gold"
+                className="absolute top-0 right-0 h-12 w-12 border-t border-r border-foreground/60"
                 aria-hidden="true"
               />
               <div
-                className="absolute bottom-0 left-0 h-12 w-12 border-b border-l border-neon-gold"
+                className="absolute bottom-0 left-0 h-12 w-12 border-b border-l border-foreground/60"
                 aria-hidden="true"
               />
             </div>
 
             {/* Floating stat card */}
             <div className="absolute -bottom-6 -right-6 border border-border bg-card p-6 md:p-8">
-              <div className="font-sans text-4xl font-black text-foreground">12+</div>
+              <div className="font-sans text-4xl font-black text-foreground/92">12+</div>
               <div className="mt-1 font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
                 {t(aboutT.experienceLabel)}
               </div>

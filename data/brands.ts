@@ -45,7 +45,7 @@ export const brands: Brand[] = [
 ]
 
 export const sectors = {
-  horeca: { label: 'Ho.Re.Ca', color: '#ff2d2d' },
-  luxury: { label: 'Luxury / Nautica', color: '#c9a84c' },
-  industrial: { label: 'Industrial', color: '#00d4ff' },
+  horeca: { label: 'Ho.Re.Ca', color: '#d4d4d4' },
+  luxury: { label: 'Luxury / Nautica', color: '#aaaaaa' },
+  industrial: { label: 'Industrial', color: '#7f7f7f' },
 }

@@ -19,7 +19,7 @@ export const projects: Project[] = [
   {
     id: 'mentime',
     slug: 'mentime',
-    accentColor: '#00d4ff',
+    accentColor: '#d9d9d9',
     category: 'product',
     year: 2023,
     image: '/assets/projects/mentime-design.png',
@@ -41,7 +41,7 @@ export const projects: Project[] = [
   {
     id: 'uwasso',
     slug: 'uwasso',
-    accentColor: '#ff2d2d',
+    accentColor: '#c7c7c7',
     category: 'product',
     year: 2022,
     image: '/assets/projects/uvassow-design.png',
@@ -63,7 +63,7 @@ export const projects: Project[] = [
   {
     id: 'glass',
     slug: 'glass',
-    accentColor: '#c9a84c',
+    accentColor: '#b0b0b0',
     category: 'research',
     year: 2023,
     image: '/assets/projects/glass-design.png',
@@ -85,7 +85,7 @@ export const projects: Project[] = [
   {
     id: 'seven',
     slug: 'seven',
-    accentColor: '#c9a84c',
+    accentColor: '#9b9b9b',
     category: 'interior',
     year: 2022,
     image: '/assets/projects/seven-design.png',

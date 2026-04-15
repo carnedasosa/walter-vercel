@@ -12,6 +12,7 @@ export function Hero() {
   const [currentDiscipline, setCurrentDiscipline] = useState(0)
   const [scrollProgress, setScrollProgress] = useState(0)
   const disciplines = tArr(hero.discipline)
+  const taglineLines = t(hero.tagline).split('\n')
 
   // Rotate disciplines
   useEffect(() => {
@@ -50,11 +51,11 @@ export function Hero() {
         }}
       />
 
-      {/* Accent glow orb */}
+      {/* Accent orb */}
       <div
         className="pointer-events-none absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full opacity-10"
         style={{
-          background: 'radial-gradient(circle, rgba(255,45,45,0.6) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%)',
         }}
         aria-hidden="true"
       />
@@ -77,10 +78,10 @@ export function Hero() {
       <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center py-16">
         {/* Discipline ticker */}
         <div className="mb-6 flex items-center gap-3">
-          <span className="block h-px w-10 bg-neon-red" aria-hidden="true" />
+          <span className="block h-px w-10 bg-muted-foreground/60" aria-hidden="true" />
           <span
             key={currentDiscipline}
-            className="font-mono animate-in fade-in text-xs tracking-[0.3em] text-neon-red uppercase duration-500"
+            className="font-mono animate-in fade-in text-xs tracking-[0.3em] text-foreground/85 uppercase duration-500"
           >
             {disciplines[currentDiscipline]}
           </span>
@@ -92,9 +93,15 @@ export function Hero() {
           data-gsap-intro
           data-gsap-delay="0.24"
         >
-          {t(hero.tagline).split('\n').map((line, i) => (
+          {taglineLines.map((line, i) => (
             <span key={i} className="block">
-              {i === 1 ? <span className="text-neon-red glow-red">{line}</span> : line}
+              {i === 0 ? (
+                <span className="text-foreground/72">{line}</span>
+              ) : i === 1 ? (
+                <span className="text-foreground">{line}</span>
+              ) : (
+                <span className="text-foreground/82">{line}</span>
+              )}
             </span>
           ))}
         </h1>
@@ -111,7 +118,7 @@ export function Hero() {
         <div className="mt-12 flex items-center gap-8" data-gsap-intro data-gsap-delay="0.42">
           <a
             href="#projects"
-            className="group relative inline-flex items-center gap-3 border border-foreground px-8 py-4 font-mono text-xs tracking-widest text-foreground uppercase transition-all duration-300 hover:border-neon-red hover:text-neon-red"
+            className="group relative inline-flex items-center gap-3 border border-foreground/80 px-8 py-4 font-mono text-xs tracking-widest text-foreground/90 uppercase transition-all duration-300 hover:border-foreground hover:text-foreground"
           >
             {t(hero.cta)}
             <svg
@@ -141,7 +148,7 @@ export function Hero() {
         <div className="flex flex-col items-center gap-3" aria-hidden="true">
           <div className="h-12 w-px overflow-hidden bg-border">
             <div
-              className="h-full w-full origin-top bg-neon-red transition-transform duration-300"
+              className="h-full w-full origin-top bg-foreground/80 transition-transform duration-300"
               style={{ transform: `scaleY(${scrollProgress})` }}
             />
           </div>
@@ -158,7 +165,7 @@ export function Hero() {
             { value: '30+', label: t(hero.stats.projects) },
           ].map((stat) => (
             <div key={stat.label} className="text-right">
-              <div className="font-sans text-3xl font-black text-foreground">{stat.value}</div>
+              <div className="font-sans text-3xl font-black text-foreground/90">{stat.value}</div>
               <div className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
                 {stat.label}
               </div>

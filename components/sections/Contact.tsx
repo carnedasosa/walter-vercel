@@ -11,6 +11,7 @@ export function Contact() {
   const contactT = translations.contact
   const [status, setStatus] = useState<Status>('idle')
   const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const titleLines = t(contactT.title).split('\n')
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,7 +44,7 @@ export function Contact() {
         aria-hidden="true"
         style={{
           background:
-            'radial-gradient(ellipse 50% 50% at 100% 100%, rgba(255,45,45,0.06) 0%, transparent 70%)',
+            'radial-gradient(ellipse 50% 50% at 100% 100%, rgba(255,255,255,0.06) 0%, transparent 70%)',
         }}
       />
 
@@ -63,9 +64,15 @@ export function Contact() {
               id="contact-heading"
               className="text-balance font-sans text-5xl font-black leading-tight tracking-tight text-foreground md:text-6xl"
             >
-              {t(contactT.title).split('\n').map((line, i) => (
-                <span key={i} className={`block ${i === 2 ? 'text-neon-red glow-red' : ''}`}>
-                  {line}
+              {titleLines.map((line, i) => (
+                <span key={i} className="block">
+                  {i === 0 ? (
+                    <span className="text-foreground/74">{line}</span>
+                  ) : i === 1 ? (
+                    <span className="text-foreground/84">{line}</span>
+                  ) : (
+                    <span className="text-foreground">{line}</span>
+                  )}
                 </span>
               ))}
             </h2>
@@ -82,7 +89,7 @@ export function Contact() {
                 </p>
                 <a
                   href="mailto:walter@walterianieri.com"
-                  className="font-sans text-base font-medium text-foreground transition-colors hover:text-neon-red"
+                  className="font-sans text-base font-medium text-foreground/90 transition-colors hover:text-foreground"
                 >
                   walter@walterianieri.com
                 </a>
@@ -91,7 +98,7 @@ export function Contact() {
                 <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground mb-1">
                   {t(contactT.locationLabel)}
                 </p>
-                <p className="font-sans text-base text-foreground">
+                <p className="font-sans text-base text-foreground/86">
                   {t(contactT.locationValue)}
                 </p>
               </div>
@@ -103,7 +110,7 @@ export function Contact() {
                   href="https://linkedin.com/in/walterianieri"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-sans text-base font-medium text-foreground transition-colors hover:text-neon-red"
+                  className="font-sans text-base font-medium text-foreground/90 transition-colors hover:text-foreground"
                 >
                   /in/walterianieri
                 </a>
@@ -114,11 +121,11 @@ export function Contact() {
           {/* Right: Form */}
           <div>
             {status === 'success' ? (
-              <div className="flex h-full flex-col items-start justify-center gap-4 border border-neon-red p-10 neon-border-red">
-                <div className="font-mono text-xs tracking-widest uppercase text-neon-red">
-                  ✓ {t(contactT.successTitle)}
+              <div className="flex h-full flex-col items-start justify-center gap-4 border border-foreground/45 bg-card/90 p-10">
+                <div className="font-mono text-xs tracking-widest text-foreground/90 uppercase">
+                  [OK] {t(contactT.successTitle)}
                 </div>
-                <p className="font-sans text-lg font-bold text-foreground">
+                <p className="font-sans text-lg font-bold text-foreground/92">
                   {t(contactT.successMsg)}
                 </p>
                 <button
@@ -151,7 +158,7 @@ export function Contact() {
                     value={form.name}
                     onChange={handleChange}
                     placeholder={t(contactT.namePlaceholder)}
-                    className="border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-neon-red focus:outline-none"
+                    className="border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-foreground focus:outline-none"
                   />
                 </div>
 
@@ -171,7 +178,7 @@ export function Contact() {
                     value={form.email}
                     onChange={handleChange}
                     placeholder={t(contactT.emailPlaceholder)}
-                    className="border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-neon-red focus:outline-none"
+                    className="border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-foreground focus:outline-none"
                   />
                 </div>
 
@@ -191,12 +198,12 @@ export function Contact() {
                     value={form.message}
                     onChange={handleChange}
                     placeholder={t(contactT.messagePlaceholder)}
-                    className="resize-none border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-neon-red focus:outline-none"
+                    className="resize-none border border-border bg-transparent px-4 py-3 font-sans text-sm text-foreground placeholder:text-muted-foreground/40 transition-colors focus:border-foreground focus:outline-none"
                   />
                 </div>
 
                 {status === 'error' && (
-                  <p className="font-mono text-xs text-neon-red" role="alert">
+                  <p className="font-mono text-xs text-muted-foreground" role="alert">
                     {t(contactT.errorMsg)}
                   </p>
                 )}
@@ -204,7 +211,7 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={status === 'sending'}
-                  className="group relative inline-flex items-center justify-between border border-neon-red bg-neon-red px-8 py-4 font-mono text-xs tracking-widest uppercase text-foreground transition-all duration-300 hover:bg-transparent hover:text-neon-red disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="group relative inline-flex items-center justify-between border border-foreground/85 bg-foreground/95 px-8 py-4 font-mono text-xs tracking-widest text-background uppercase transition-all duration-300 hover:bg-transparent hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span>
                     {status === 'sending' ? t(contactT.sending) : t(contactT.submit)}
