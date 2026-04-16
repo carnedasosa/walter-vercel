@@ -80,83 +80,10 @@
   }
 }
 
-html.has-custom-cursor,
-html.has-custom-cursor body {
-  cursor: none;
-}
-
 /* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 3px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--muted-foreground);
-}
-
-/* Selection */
 ::selection {
   background: rgba(255, 255, 255, 0.25);
   color: #0b0b0b;
-}
-
-/* Noise texture overlay - Disabled on mobile for scroll performance */
-.noise::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.025;
-  pointer-events: none;
-  z-index: 9999;
-}
-
-@media (hover: none), (pointer: coarse) {
-  .noise::before {
-    display: none;
-  }
-}
-
-/* Custom cursor - Using translate3d in JS for GPU acceleration */
-.custom-cursor {
-  position: fixed;
-  width: 12px;
-  height: 12px;
-  background: var(--foreground);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  mix-blend-mode: difference;
-  will-change: transform;
-}
-
-.cursor-follower {
-  position: fixed;
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(245, 245, 245, 0.45);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  will-change: transform;
-}
-
-@media (hover: none),
-(pointer: coarse),
-(prefers-reduced-motion: reduce) {
-
-  .custom-cursor,
-  .cursor-follower {
-    display: none;
-  }
 }
 
 @layer utilities {

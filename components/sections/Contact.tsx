@@ -35,7 +35,6 @@ export function Contact() {
     <section
       id="contact"
       className="relative border-t border-border py-24"
-      data-gsap-section
       aria-labelledby="contact-heading"
     >
       {/* Atmosphere */}

@@ -24,7 +24,6 @@ export function About() {
     <section
       id="about"
       className="relative border-t border-border py-24"
-      data-gsap-section
       aria-labelledby="about-heading"
     >
       {/* Atmosphere */}

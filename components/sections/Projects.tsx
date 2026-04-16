@@ -18,7 +18,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       className={`group relative flex flex-col gap-8 border-t border-border py-16 md:flex-row md:items-center md:gap-16 ${
         isEven ? '' : 'md:flex-row-reverse'
       }`}
-      data-gsap-section
       aria-label={project.title[lang]}
     >
       {/* Image */}
@@ -128,7 +127,6 @@ export function Projects() {
     <section
       id="projects"
       className="mx-auto max-w-7xl px-6 py-24 md:px-10"
-      data-gsap-section
       aria-labelledby="projects-heading"
     >
       {/* Section header */}

@@ -12,7 +12,6 @@ export function WallOfBrands() {
     <section
       id="brands"
       className="relative overflow-hidden border-t border-border py-24"
-      data-gsap-section
       aria-labelledby="brands-heading"
     >
       {/* Atmosphere */}
@@ -72,7 +71,6 @@ export function WallOfBrands() {
           className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-3"
           role="list"
           aria-label="Brand collaborations"
-          data-gsap-stagger
         >
           {brands.map((brand) => {
             const sectorColor = sectors[brand.sector].color

@@ -12,7 +12,6 @@ export function Footer() {
     <footer
       className="border-t border-border"
       role="contentinfo"
-      data-gsap-section
     >
       <div className="mx-auto max-w-7xl px-6 py-12 md:px-10">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
