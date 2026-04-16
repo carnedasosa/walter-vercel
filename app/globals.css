@@ -80,10 +80,10 @@
   }
 }
 
-/* Custom scrollbar - Active only on PC/Pointer devices */
-@media (hover: hover) and (pointer: fine) {
+/* Custom scrollbar - Active only on Desktop (min-width: 1024px) */
+@media (min-width: 1024px) {
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 6px; /* Leggermente più larga per visibilità */
   }
 
   ::-webkit-scrollbar-track {
@@ -91,19 +91,19 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--border);
+    background: #333; /* Grigio più visibile */
     border-radius: 10px;
-    transition: background 0.3s ease;
+    border: 1px solid var(--background); /* Crea uno spazio intorno */
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--muted-foreground);
+    background: var(--accent); /* Cambia colore all'hover per feedback */
   }
 
   /* Firefox support */
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--border) var(--background);
+    scrollbar-color: #333 var(--background);
   }
 }
 

@@ -22,7 +22,7 @@ export function Navigation() {
     // 1. Liquid Scroll Transition
     // We animate the header properties continuously based on scroll position
     ScrollTrigger.create({
-      trigger: 'body',
+      trigger: document.body,
       start: 'top top',
       end: '+=100',
       scrub: 1,

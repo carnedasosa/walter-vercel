@@ -30,14 +30,14 @@ export function Hero() {
       opacity: 0,
       duration: 1
     }, '-=1')
-    .from('.hero-tagline-line', {
-      y: 100,
-      opacity: 0,
-      rotateX: -20,
-      filter: 'blur(15px)',
-      stagger: 0.15,
-      duration: 2
-    }, '-=1.2')
+    // .from('.hero-tagline-line', {
+    //   y: 100,
+    //   opacity: 0,
+    //   rotateX: -20,
+    //   filter: 'blur(15px)',
+    //   stagger: 0.15,
+    //   duration: 2
+    // }, '-=1.2')
     .from('.hero-subtitle', {
       opacity: 0,
       y: 20,
