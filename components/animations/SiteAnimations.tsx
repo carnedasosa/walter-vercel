@@ -20,28 +20,29 @@ export function SiteAnimations() {
     registerGsapPlugins()
 
     const ctx = gsap.context(() => {
+      // Intro animations
       const introElements = gsap.utils.toArray<HTMLElement>('[data-gsap-intro]')
+      if (introElements.length) {
+        introElements.forEach((element, index) => {
+          const customDelay = Number(element.dataset.gsapDelay ?? `${index * 0.08}`)
+          gsap.fromTo(
+            element,
+            { autoAlpha: 0, y: 28, filter: 'blur(3px)' },
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              duration: 0.9,
+              delay: customDelay,
+              ease: 'power3.out',
+              clearProps: 'filter,transform',
+            }
+          )
+        })
+      }
 
-      introElements.forEach((element, index) => {
-        const customDelay = Number(element.dataset.gsapDelay ?? `${index * 0.08}`)
-
-        gsap.fromTo(
-          element,
-          { autoAlpha: 0, y: 28, filter: 'blur(3px)' },
-          {
-            autoAlpha: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            duration: 0.9,
-            delay: customDelay,
-            ease: 'power3.out',
-            clearProps: 'filter',
-          }
-        )
-      })
-
+      // Section reveal
       const revealSections = gsap.utils.toArray<HTMLElement>('[data-gsap-section]')
-
       revealSections.forEach((element) => {
         gsap.fromTo(
           element,
@@ -62,8 +63,8 @@ export function SiteAnimations() {
         )
       })
 
+      // Stagger containers
       const staggerContainers = gsap.utils.toArray<HTMLElement>('[data-gsap-stagger]')
-
       staggerContainers.forEach((container) => {
         const children = Array.from(container.children) as HTMLElement[]
         if (!children.length) return
@@ -87,8 +88,14 @@ export function SiteAnimations() {
       })
     })
 
+    // Force a refresh after a short delay to ensure layout is final
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 100)
+
     return () => {
       ctx.revert()
+      clearTimeout(timer)
     }
   }, [])
 

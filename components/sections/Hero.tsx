@@ -10,7 +10,6 @@ export function Hero() {
   const hero = translations.hero
   const containerRef = useRef<HTMLDivElement>(null)
   const [currentDiscipline, setCurrentDiscipline] = useState(0)
-  const [scrollProgress, setScrollProgress] = useState(0)
   const disciplines = tArr(hero.discipline)
   const taglineLines = t(hero.tagline).split('\n')
 
@@ -22,13 +21,22 @@ export function Hero() {
     return () => clearInterval(interval)
   }, [disciplines.length])
 
-  // Scroll progress
+  const progressRef = useRef<HTMLDivElement>(null)
+
+  // Scroll progress (Direct DOM manipulation to avoid re-renders/loops)
   useEffect(() => {
     const handleScroll = () => {
+      if (!progressRef.current) return
       const winH = window.innerHeight
       const docH = document.documentElement.scrollHeight - winH
-      setScrollProgress(docH > 0 ? window.scrollY / docH : 0)
+      const progress = docH > 0 ? Math.min(Math.max(window.scrollY / docH, 0), 1) : 0
+      
+      progressRef.current.style.transform = `scaleY(${progress})`
     }
+    
+    // Initial call
+    handleScroll()
+    
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -148,8 +156,9 @@ export function Hero() {
         <div className="flex flex-col items-center gap-3" aria-hidden="true">
           <div className="h-12 w-px overflow-hidden bg-border">
             <div
-              className="h-full w-full origin-top bg-foreground/80 transition-transform duration-300"
-              style={{ transform: `scaleY(${scrollProgress})` }}
+              ref={progressRef}
+              className="h-full w-full origin-top bg-foreground/80"
+              style={{ transform: 'scaleY(0)' }}
             />
           </div>
           <span className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase [writing-mode:vertical-rl]">
