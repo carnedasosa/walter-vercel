@@ -1,20 +1,65 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/data/translations'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP)
+}
 
 export function Navigation() {
   const { lang, toggleLang } = useLanguage()
   const nav = translations.nav
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const headerRef = useRef<HTMLElement>(null)
+  const navRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  useGSAP(() => {
+    // 1. Liquid Scroll Transition
+    // We animate the header properties continuously based on scroll position
+    ScrollTrigger.create({
+      trigger: 'body',
+      start: 'top top',
+      end: '+=100',
+      scrub: 1,
+      onUpdate: (self) => {
+        const p = self.progress
+        gsap.set(headerRef.current, {
+          backgroundColor: `rgba(0, 0, 0, ${p * 0.8})`,
+          backdropFilter: `blur(${p * 20}px) saturate(${100 + p * 80}%)`,
+          paddingTop: `${1.5 - p * 0.5}rem`,
+          paddingBottom: `${1.5 - p * 0.5}rem`,
+          borderBottomColor: `rgba(44, 44, 46, ${p * 0.3})`
+        })
+      }
+    })
+
+    // 2. Resilient Intro Animation (Failsafe)
+    // Elements are visible by default in CSS. We animate FROM hidden states.
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.2 } })
+    
+    tl.from('.nav-logo', {
+      y: 10,
+      opacity: 0,
+      filter: 'blur(10px)',
+      delay: 0.2
+    })
+    .from('.nav-link', {
+      y: 15,
+      opacity: 0,
+      filter: 'blur(8px)',
+      stagger: 0.08
+    }, '-=0.8')
+    .from('.nav-right', {
+      opacity: 0,
+      x: 10
+    }, '-=1')
+
+  }, { scope: headerRef })
 
   useEffect(() => {
     if (menuOpen) {
@@ -37,17 +82,18 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 ${scrolled ? 'navbar-glass-refined border-b border-border-30 py-4' : 'bg-transparent py-6'
-          }`}
+        ref={headerRef}
+        className="fixed top-0 left-0 right-0 z-50 py-6 border-b border-transparent transition-colors duration-300"
       >
         <nav
+          ref={navRef}
           className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-10"
           aria-label="Main navigation"
         >
           {/* Logo */}
           <a
             href="#"
-            className="font-mono text-xs font-bold tracking-[0.2em] text-foreground uppercase group"
+            className="nav-logo font-mono text-xs font-bold tracking-[0.2em] text-foreground uppercase group"
             aria-label={nav.homeAria[lang]}
           >
             WALTER <span className="text-accent group-hover:text-foreground">IANIERI</span>
@@ -62,7 +108,7 @@ export function Navigation() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="font-mono text-xs tracking-widest text-muted-foreground uppercase hover:text-foreground"
+                  className="nav-link font-mono text-xs tracking-widest text-muted-foreground uppercase hover:text-foreground inline-block"
                 >
                   {link.label}
                 </a>
@@ -71,7 +117,7 @@ export function Navigation() {
           </ul>
 
           {/* Right side */}
-          <div className="flex items-center gap-4">
+          <div className="nav-right flex items-center gap-4">
             {/* Lang toggle */}
             <button
               onClick={toggleLang}
@@ -91,13 +137,13 @@ export function Navigation() {
               aria-expanded={menuOpen}
             >
               <span
-                className={`block h-px w-6 bg-foreground ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`}
+                className={`block h-px w-6 bg-foreground transition-transform ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`}
               />
               <span
-                className={`block h-px w-6 bg-foreground ${menuOpen ? 'opacity-0' : ''}`}
+                className={`block h-px w-6 bg-foreground transition-opacity ${menuOpen ? 'opacity-0' : ''}`}
               />
               <span
-                className={`block h-px w-6 bg-foreground ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}
+                className={`block h-px w-6 bg-foreground transition-transform ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}
               />
             </button>
           </div>
@@ -106,7 +152,7 @@ export function Navigation() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col justify-center bg-background px-10 md:hidden ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+        className={`fixed inset-0 z-40 flex flex-col justify-center bg-background px-10 md:hidden transition-all duration-300 ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
           }`}
         aria-hidden={!menuOpen}
       >

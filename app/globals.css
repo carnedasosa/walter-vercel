@@ -80,7 +80,33 @@
   }
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Active only on PC/Pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+  }
+
+  /* Firefox support */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) var(--background);
+  }
+}
+
 ::selection {
   background: rgba(255, 255, 255, 0.25);
   color: #0b0b0b;
