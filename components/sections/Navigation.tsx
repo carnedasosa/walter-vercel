@@ -37,7 +37,7 @@ export function Navigation() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'navbar-glass-refined border-b border-border-30 py-4' : 'bg-transparent py-6'
+        className={`fixed top-0 left-0 right-0 z-50 ${scrolled ? 'navbar-glass-refined border-b border-border-30 py-4' : 'bg-transparent py-6'
           }`}
       >
         <nav
@@ -49,24 +49,20 @@ export function Navigation() {
             href="#"
             className="font-mono text-xs font-bold tracking-[0.2em] text-foreground uppercase group"
             aria-label={nav.homeAria[lang]}
-            data-gsap-intro
-            data-gsap-delay="0.05"
           >
-            WALTER <span className="text-accent group-hover:text-foreground transition-colors duration-300">IANIERI</span>
+            WALTER <span className="text-accent group-hover:text-foreground">IANIERI</span>
           </a>
 
           {/* Desktop links */}
           <ul
             className="hidden items-center gap-8 md:flex"
             role="list"
-            data-gsap-intro
-            data-gsap-delay="0.12"
           >
             {links.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="font-mono text-xs tracking-widest text-muted-foreground uppercase transition-colors duration-200 hover:text-foreground"
+                  className="font-mono text-xs tracking-widest text-muted-foreground uppercase hover:text-foreground"
                 >
                   {link.label}
                 </a>
@@ -75,12 +71,12 @@ export function Navigation() {
           </ul>
 
           {/* Right side */}
-          <div className="flex items-center gap-4" data-gsap-intro data-gsap-delay="0.2">
+          <div className="flex items-center gap-4">
             {/* Lang toggle */}
             <button
               onClick={toggleLang}
               aria-label={`Switch to ${lang === 'it' ? 'English' : 'Italian'}`}
-              className="font-mono text-xs tracking-widest text-muted-foreground uppercase transition-colors hover:text-accent"
+              className="font-mono text-xs tracking-widest text-muted-foreground uppercase hover:text-accent"
             >
               <span className={lang === 'it' ? 'text-accent' : 'text-muted-foreground'}>IT</span>
               <span className="mx-1 opacity-20">/</span>
@@ -95,13 +91,13 @@ export function Navigation() {
               aria-expanded={menuOpen}
             >
               <span
-                className={`block h-px w-6 bg-foreground transition-all duration-300 ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`}
+                className={`block h-px w-6 bg-foreground ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`}
               />
               <span
-                className={`block h-px w-6 bg-foreground transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`}
+                className={`block h-px w-6 bg-foreground ${menuOpen ? 'opacity-0' : ''}`}
               />
               <span
-                className={`block h-px w-6 bg-foreground transition-all duration-300 ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}
+                className={`block h-px w-6 bg-foreground ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}
               />
             </button>
           </div>
@@ -110,18 +106,17 @@ export function Navigation() {
 
       {/* Mobile menu */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col justify-center bg-background px-10 transition-all duration-500 md:hidden ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+        className={`fixed inset-0 z-40 flex flex-col justify-center bg-background px-10 md:hidden ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
           }`}
         aria-hidden={!menuOpen}
       >
         <ul className="flex flex-col gap-8" role="list">
-          {links.map((link, i) => (
+          {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="font-sans text-4xl font-bold tracking-tight text-foreground transition-colors hover:text-muted-foreground"
-                style={{ transitionDelay: `${i * 50}ms` }}
+                className="font-sans text-4xl font-bold tracking-tight text-foreground hover:text-muted-foreground"
               >
                 {link.label}
               </a>

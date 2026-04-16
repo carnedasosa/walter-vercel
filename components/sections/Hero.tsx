@@ -13,34 +13,6 @@ export function Hero() {
   const disciplines = tArr(hero.discipline)
   const taglineLines = t(hero.tagline).split('\n')
 
-  // Rotate disciplines
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentDiscipline((prev) => (prev + 1) % disciplines.length)
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [disciplines.length])
-
-  const progressRef = useRef<HTMLDivElement>(null)
-
-  // Scroll progress (Direct DOM manipulation to avoid re-renders/loops)
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!progressRef.current) return
-      const winH = window.innerHeight
-      const docH = document.documentElement.scrollHeight - winH
-      const progress = docH > 0 ? Math.min(Math.max(window.scrollY / docH, 0), 1) : 0
-      
-      progressRef.current.style.transform = `scaleY(${progress})`
-    }
-    
-    // Initial call
-    handleScroll()
-    
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
     <section
       ref={containerRef}
@@ -69,11 +41,7 @@ export function Hero() {
       />
 
       {/* Top meta row */}
-      <div
-        className="relative flex items-center justify-between"
-        data-gsap-intro
-        data-gsap-delay="0.16"
-      >
+      <div className="relative flex items-center justify-between">
         <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground">
           {new Date().getFullYear()} - Puglia, IT
         </span>
@@ -87,20 +55,13 @@ export function Hero() {
         {/* Discipline ticker */}
         <div className="mb-6 flex items-center gap-3">
           <span className="block h-px w-10 bg-accent/40" aria-hidden="true" />
-          <span
-            key={currentDiscipline}
-            className="font-mono animate-in fade-in text-xs tracking-[0.3em] text-accent uppercase duration-500"
-          >
-            {disciplines[currentDiscipline]}
+          <span className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
+            {disciplines[0]}
           </span>
         </div>
 
         {/* Giant tagline */}
-        <h1
-          className="text-balance font-sans text-6xl leading-none font-black tracking-tight text-foreground md:text-7xl lg:text-8xl xl:text-9xl"
-          data-gsap-intro
-          data-gsap-delay="0.24"
-        >
+        <h1 className="text-balance font-sans text-6xl leading-none font-black tracking-tight text-foreground md:text-7xl lg:text-8xl xl:text-9xl">
           {taglineLines.map((line, i) => (
             <span key={i} className="block">
               {i === 0 ? (
@@ -114,16 +75,12 @@ export function Hero() {
           ))}
         </h1>
 
-        <p
-          className="mt-8 max-w-lg font-mono text-sm leading-relaxed tracking-wide text-muted-foreground"
-          data-gsap-intro
-          data-gsap-delay="0.34"
-        >
+        <p className="mt-8 max-w-lg font-mono text-sm leading-relaxed tracking-wide text-muted-foreground">
           {t(hero.subtitle)}
         </p>
 
         {/* CTA */}
-        <div className="mt-12 flex items-center gap-8" data-gsap-intro data-gsap-delay="0.42">
+        <div className="mt-12 flex items-center gap-8">
           <a
             href="#projects"
             className="glass group relative inline-flex items-center gap-3 px-8 py-4 font-mono text-xs tracking-widest text-foreground/90 uppercase transition-all duration-300 hover:bg-white/5 hover:text-accent rounded-full"
@@ -152,14 +109,10 @@ export function Hero() {
 
       {/* Bottom row */}
       <div className="relative flex items-end justify-between">
-        {/* Scroll indicator */}
+        {/* Scroll indicator - static */}
         <div className="flex flex-col items-center gap-3" aria-hidden="true">
           <div className="h-12 w-px overflow-hidden bg-border">
-            <div
-              ref={progressRef}
-              className="h-full w-full origin-top bg-foreground/80"
-              style={{ transform: 'scaleY(0)' }}
-            />
+            <div className="h-full w-full origin-top bg-foreground/10" />
           </div>
           <span className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase [writing-mode:vertical-rl]">
             {t(hero.scrollLabel)}
@@ -167,7 +120,7 @@ export function Hero() {
         </div>
 
         {/* Stats */}
-        <div className="hidden items-end gap-12 md:flex" data-gsap-intro data-gsap-delay="0.52">
+        <div className="hidden items-end gap-12 md:flex">
           {[
             { value: '4+', label: t(hero.stats.patents) },
             { value: '12+', label: t(hero.stats.years) },

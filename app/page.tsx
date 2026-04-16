@@ -12,8 +12,8 @@ import { SiteAnimations } from '@/components/animations/SiteAnimations'
 export default function Home() {
   return (
     <LanguageProvider>
-      <SiteAnimations />
-      <CustomCursor />
+      {/* <SiteAnimations /> */}
+      {/* <CustomCursor /> */}
       <Navigation />
       <main>
         <Hero />
