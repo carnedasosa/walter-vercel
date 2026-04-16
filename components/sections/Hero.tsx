@@ -4,8 +4,7 @@ import { useRef, useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/data/translations'
 import { projects } from '@/data/projects'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
+import { gsap, useGSAP, ScrollTrigger } from '@/lib/gsap'
 
 export function Hero() {
   const { t, tArr } = useLanguage()
@@ -30,14 +29,15 @@ export function Hero() {
       opacity: 0,
       duration: 1
     }, '-=1')
-    // .from('.hero-tagline-line', {
-    //   y: 100,
-    //   opacity: 0,
-    //   rotateX: -20,
-    //   filter: 'blur(15px)',
-    //   stagger: 0.15,
-    //   duration: 2
-    // }, '-=1.2')
+    .from('.hero-tagline-line', {
+      y: 80, // Slightly reduced for performance
+      opacity: 0,
+      rotateX: -15, // Slightly reduced
+      filter: 'blur(10px)', // Slightly reduced
+      stagger: 0.12,
+      duration: 1.8,
+      clearProps: 'filter,rotateX' // Cleanup after animation
+    }, '-=1.2')
     .from('.hero-subtitle', {
       opacity: 0,
       y: 20,
@@ -60,6 +60,8 @@ export function Hero() {
       height: 0,
       duration: 1.5
     }, '-=1')
+
+    ScrollTrigger.refresh()
 
   }, { scope: containerRef })
 

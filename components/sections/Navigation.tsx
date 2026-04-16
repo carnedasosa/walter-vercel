@@ -3,13 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/data/translations'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useGSAP } from '@gsap/react'
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger, useGSAP)
-}
+import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap'
 
 export function Navigation() {
   const { lang, toggleLang } = useLanguage()
@@ -19,27 +13,26 @@ export function Navigation() {
   const navRef = useRef<HTMLElement>(null)
 
   useGSAP(() => {
-    // 1. Liquid Scroll Transition
-    // We animate the header properties continuously based on scroll position
-    ScrollTrigger.create({
-      trigger: document.body,
-      start: 'top top',
-      end: '+=100',
-      scrub: 1,
-      onUpdate: (self) => {
-        const p = self.progress
-        gsap.set(headerRef.current, {
-          backgroundColor: `rgba(0, 0, 0, ${p * 0.8})`,
-          backdropFilter: `blur(${p * 20}px) saturate(${100 + p * 80}%)`,
-          paddingTop: `${1.5 - p * 0.5}rem`,
-          paddingBottom: `${1.5 - p * 0.5}rem`,
-          borderBottomColor: `rgba(44, 44, 46, ${p * 0.3})`
-        })
+    if (!headerRef.current) return
+
+    // 1. Optimized Liquid Scroll Transition
+    // Using a direct tween with ScrollTrigger is much more efficient than onUpdate
+    gsap.to(headerRef.current, {
+      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+      backdropFilter: 'blur(20px) saturate(180%)',
+      paddingTop: '1rem',
+      paddingBottom: '1rem',
+      borderBottomColor: 'rgba(44, 44, 46, 0.3)',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: document.body,
+        start: 'top top',
+        end: '+=80',
+        scrub: true,
       }
     })
 
     // 2. Resilient Intro Animation (Failsafe)
-    // Elements are visible by default in CSS. We animate FROM hidden states.
     const tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.2 } })
     
     tl.from('.nav-logo', {
@@ -58,6 +51,9 @@ export function Navigation() {
       opacity: 0,
       x: 10
     }, '-=1')
+
+    // Force a refresh once hydrated to ensure initial states are correct
+    ScrollTrigger.refresh()
 
   }, { scope: headerRef })
 

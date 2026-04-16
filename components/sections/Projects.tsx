@@ -31,6 +31,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           src={project.image}
           alt={`${project.title[lang]} — ${project.tagline[lang]}`}
           fill
+          priority={index === 0}
           className="object-cover transition-transform duration-700 group-hover:scale-105"
           onLoad={() => setImageLoaded(true)}
           sizes="(max-width: 768px) 100vw, 50vw"
