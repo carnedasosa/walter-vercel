@@ -1,61 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/data/translations'
-import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap'
 
 export function Navigation() {
   const { lang, toggleLang } = useLanguage()
   const nav = translations.nav
   const [menuOpen, setMenuOpen] = useState(false)
-  const headerRef = useRef<HTMLElement>(null)
-  const navRef = useRef<HTMLElement>(null)
-
-  useGSAP(() => {
-    if (!headerRef.current) return
-
-    // 1. Optimized Liquid Scroll Transition
-    // Using a direct tween with ScrollTrigger is much more efficient than onUpdate
-    gsap.to(headerRef.current, {
-      backgroundColor: 'rgba(0, 0, 0, 0.85)',
-      backdropFilter: 'blur(20px) saturate(180%)',
-      paddingTop: '1rem',
-      paddingBottom: '1rem',
-      borderBottomColor: 'rgba(44, 44, 46, 0.3)',
-      ease: 'none',
-      scrollTrigger: {
-        trigger: document.body,
-        start: 'top top',
-        end: '+=80',
-        scrub: true,
-      }
-    })
-
-    // 2. Resilient Intro Animation (Failsafe)
-    const tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.2 } })
-    
-    tl.from('.nav-logo', {
-      y: 10,
-      opacity: 0,
-      filter: 'blur(10px)',
-      delay: 0.2
-    })
-    .from('.nav-link', {
-      y: 15,
-      opacity: 0,
-      filter: 'blur(8px)',
-      stagger: 0.08
-    }, '-=0.8')
-    .from('.nav-right', {
-      opacity: 0,
-      x: 10
-    }, '-=1')
-
-    // Force a refresh once hydrated to ensure initial states are correct
-    ScrollTrigger.refresh()
-
-  }, { scope: headerRef })
 
   useEffect(() => {
     if (menuOpen) {
@@ -78,18 +30,16 @@ export function Navigation() {
   return (
     <>
       <header
-        ref={headerRef}
-        className="fixed top-0 left-0 right-0 z-50 py-6 border-b border-transparent transition-colors duration-300"
+        className="fixed top-0 left-0 right-0 z-50 py-4 navbar-glass-refined border-b border-border-30 transition-all duration-300"
       >
         <nav
-          ref={navRef}
           className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-10"
           aria-label="Main navigation"
         >
           {/* Logo */}
           <a
             href="#"
-            className="nav-logo font-mono text-xs font-bold tracking-[0.2em] text-foreground uppercase group"
+            className="font-mono text-xs font-bold tracking-[0.2em] text-foreground uppercase group"
             aria-label={nav.homeAria[lang]}
           >
             WALTER <span className="text-accent group-hover:text-foreground">IANIERI</span>
@@ -104,7 +54,7 @@ export function Navigation() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="nav-link font-mono text-xs tracking-widest text-muted-foreground uppercase hover:text-foreground inline-block"
+                  className="font-mono text-xs tracking-widest text-muted-foreground uppercase hover:text-foreground inline-block"
                 >
                   {link.label}
                 </a>
@@ -113,7 +63,7 @@ export function Navigation() {
           </ul>
 
           {/* Right side */}
-          <div className="nav-right flex items-center gap-4">
+          <div className="flex items-center gap-4">
             {/* Lang toggle */}
             <button
               onClick={toggleLang}
