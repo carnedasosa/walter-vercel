@@ -13,13 +13,15 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>(() => {
-    if (typeof window === 'undefined') {
-      return 'it'
+  const [lang, setLang] = useState<Lang>('it')
+
+  // Load language from localStorage once on mount to avoid hydration mismatch
+  useEffect(() => {
+    const savedLang = window.localStorage.getItem('lang') as Lang
+    if (savedLang === 'it' || savedLang === 'en') {
+      setLang(savedLang)
     }
-    const savedLang = window.localStorage.getItem('lang')
-    return savedLang === 'it' || savedLang === 'en' ? savedLang : 'it'
-  })
+  }, [])
 
   useEffect(() => {
     document.documentElement.lang = lang
