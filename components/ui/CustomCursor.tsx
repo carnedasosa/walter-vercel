@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null)
@@ -8,8 +8,10 @@ export function CustomCursor() {
   const mousePos = useRef({ x: -100, y: -100 })
   const followerPos = useRef({ x: -100, y: -100 })
   const rafRef = useRef<number>(0)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    // Check for touch devices/pointer precision
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
@@ -18,6 +20,7 @@ export function CustomCursor() {
       return
     }
 
+    setIsVisible(true)
     document.documentElement.classList.add('has-custom-cursor')
 
     const handleMove = (e: MouseEvent) => {
@@ -27,16 +30,17 @@ export function CustomCursor() {
     const animate = () => {
       // Dot follows immediately
       if (dotRef.current) {
-        dotRef.current.style.left = `${mousePos.current.x}px`
-        dotRef.current.style.top = `${mousePos.current.y}px`
+        dotRef.current.style.transform = `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0) translate(-50%, -50%)`
       }
+      
       // Follower lags behind
       followerPos.current.x += (mousePos.current.x - followerPos.current.x) * 0.12
       followerPos.current.y += (mousePos.current.y - followerPos.current.y) * 0.12
+      
       if (followerRef.current) {
-        followerRef.current.style.left = `${followerPos.current.x}px`
-        followerRef.current.style.top = `${followerPos.current.y}px`
+        followerRef.current.style.transform = `translate3d(${followerPos.current.x}px, ${followerPos.current.y}px, 0) translate(-50%, -50%)`
       }
+      
       rafRef.current = requestAnimationFrame(animate)
     }
 
@@ -54,8 +58,8 @@ export function CustomCursor() {
       }
     }
 
-    window.addEventListener('mousemove', handleMove)
-    window.addEventListener('mouseover', handleMouseOver)
+    window.addEventListener('mousemove', handleMove, { passive: true })
+    window.addEventListener('mouseover', handleMouseOver, { passive: true })
     rafRef.current = requestAnimationFrame(animate)
 
     return () => {
@@ -65,6 +69,8 @@ export function CustomCursor() {
       cancelAnimationFrame(rafRef.current)
     }
   }, [])
+
+  if (!isVisible) return null
 
   return (
     <>

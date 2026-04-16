@@ -109,7 +109,7 @@ html.has-custom-cursor body {
   color: #0b0b0b;
 }
 
-/* Noise texture overlay */
+/* Noise texture overlay - Disabled on mobile for scroll performance */
 .noise::before {
   content: '';
   position: fixed;
@@ -120,7 +120,13 @@ html.has-custom-cursor body {
   z-index: 9999;
 }
 
-/* Custom cursor */
+@media (hover: none), (pointer: coarse) {
+  .noise::before {
+    display: none;
+  }
+}
+
+/* Custom cursor - Using translate3d in JS for GPU acceleration */
 .custom-cursor {
   position: fixed;
   width: 12px;
@@ -129,9 +135,8 @@ html.has-custom-cursor body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 10000;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
   mix-blend-mode: difference;
+  will-change: transform;
 }
 
 .cursor-follower {
@@ -142,8 +147,7 @@ html.has-custom-cursor body {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: all 0.15s ease;
+  will-change: transform;
 }
 
 @media (hover: none),
