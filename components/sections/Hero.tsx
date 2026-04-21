@@ -17,7 +17,7 @@ export function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative flex min-h-screen flex-col justify-between overflow-hidden px-6 pt-28 pb-12 md:px-10"
+      className="relative flex min-h-[100dvh] flex-col justify-between overflow-hidden px-6 pt-28 pb-12 md:px-10"
       aria-label="Hero - Walter Ianieri"
     >
       {/* Background grid lines */}
