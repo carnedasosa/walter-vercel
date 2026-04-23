@@ -1,124 +1,71 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/data/translations'
 
+gsap.registerPlugin(ScrollTrigger)
+
 export function Navigation() {
-  const { lang, toggleLang } = useLanguage()
-  const nav = translations.nav
-  const [menuOpen, setMenuOpen] = useState(false)
+  const { t } = useLanguage()
+  const navT = translations.navigation
+  const navRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [menuOpen])
+  useGSAP(() => {
+    const nav = navRef.current
+    if (!nav) return
 
-  const links = [
-    { label: nav.work[lang], href: '#projects' },
-    { label: nav.brands[lang], href: '#brands' },
-    { label: nav.about[lang], href: '#about' },
-    { label: nav.contact[lang], href: '#contact' },
-  ]
+    ScrollTrigger.create({
+      start: 80,
+      onEnter: () => {
+        nav.classList.add('scrolled')
+        gsap.to(nav, {
+          opacity: 1,
+          backdropFilter: 'blur(0px)',
+          duration: 0.3,
+          ease: 'power1.out',
+        })
+      },
+      onLeaveBack: () => {
+        nav.classList.remove('scrolled')
+        gsap.to(nav, {
+          opacity: 1,
+          backdropFilter: 'blur(8px)',
+          duration: 0.3,
+          ease: 'power1.out',
+        })
+      },
+    })
+  }, [])
 
   return (
-    <>
-      <header
-        className="fixed top-0 left-0 right-0 z-50 py-4 navbar-glass-refined border-b border-border-30 transition-all duration-300"
-      >
-        <nav
-          className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-10"
-          aria-label="Main navigation"
-        >
-          {/* Logo */}
-          <a
-            href="#"
-            className="font-mono text-xs font-bold tracking-[0.2em] text-foreground uppercase group"
-            aria-label={nav.homeAria[lang]}
-          >
-            WALTER <span className="text-accent group-hover:text-foreground">IANIERI</span>
-          </a>
+    <nav
+      ref={navRef}
+      className="fixed top-0 left-0 z-50 w-full border-b border-transparent px-6 py-4 transition-colors md:px-10"
+      aria-label={t(navT.ariaLabel)}
+      style={{ opacity: 1, backdropFilter: 'blur(8px)' }}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between">
+        <span className="font-mono text-sm font-bold tracking-widest uppercase text-foreground">
+          {t(navT.logo)}
+        </span>
 
-          {/* Desktop links */}
-          <ul
-            className="hidden items-center gap-8 md:flex"
-            role="list"
-          >
-            {links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="font-mono text-xs tracking-widest text-muted-foreground uppercase hover:text-foreground inline-block"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {/* Right side */}
-          <div className="flex items-center gap-4">
-            {/* Lang toggle */}
-            <button
-              onClick={toggleLang}
-              aria-label={`Switch to ${lang === 'it' ? 'English' : 'Italian'}`}
-              className="font-mono text-xs tracking-widest text-muted-foreground uppercase hover:text-accent"
-            >
-              <span className={lang === 'it' ? 'text-accent' : 'text-muted-foreground'}>IT</span>
-              <span className="mx-1 opacity-20">/</span>
-              <span className={lang === 'en' ? 'text-accent' : 'text-muted-foreground'}>EN</span>
-            </button>
-
-            {/* Mobile menu toggle */}
-            <button
-              className="flex flex-col gap-[5px] md:hidden"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={menuOpen}
-            >
-              <span
-                className={`block h-px w-6 bg-foreground transition-transform ${menuOpen ? 'translate-y-[7px] rotate-45' : ''}`}
-              />
-              <span
-                className={`block h-px w-6 bg-foreground transition-opacity ${menuOpen ? 'opacity-0' : ''}`}
-              />
-              <span
-                className={`block h-px w-6 bg-foreground transition-transform ${menuOpen ? '-translate-y-[7px] -rotate-45' : ''}`}
-              />
-            </button>
-          </div>
-        </nav>
-      </header>
-
-      {/* Mobile menu */}
-      <div
-        className={`fixed inset-0 z-40 flex flex-col justify-center bg-background px-10 md:hidden transition-all duration-300 ${menuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-          }`}
-        aria-hidden={!menuOpen}
-      >
-        <ul className="flex flex-col gap-8" role="list">
-          {links.map((link) => (
+        <ul className="flex items-center gap-8" role="list">
+          {navT.links.map((link: { label: { en: string; it: string }; href: string }) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="font-sans text-4xl font-bold tracking-tight text-foreground hover:text-muted-foreground"
+                className="font-mono text-xs tracking-widest uppercase text-muted-foreground transition-colors hover:text-foreground"
               >
-                {link.label}
+                {t(link.label)}
               </a>
             </li>
           ))}
         </ul>
-        <div className="mt-16 border-t border-border pt-8">
-          <p className="font-mono text-xs text-muted-foreground">walter@walterianieri.com</p>
-        </div>
       </div>
-    </>
+    </nav>
   )
 }

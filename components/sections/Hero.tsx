@@ -1,6 +1,8 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/data/translations'
 import { projects } from '@/data/projects'
@@ -9,9 +11,19 @@ export function Hero() {
   const { t, tArr } = useLanguage()
   const hero = translations.hero
   const containerRef = useRef<HTMLDivElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
   const [currentDiscipline] = useState(0)
   const disciplines = tArr(hero.discipline)
   const taglineLines = t(hero.tagline).split('\n')
+
+  useGSAP(() => {
+    gsap.from(headingRef.current, {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.out',
+    })
+  }, { scope: containerRef })
 
   return (
     <section
@@ -61,7 +73,10 @@ export function Hero() {
         </div>
 
         {/* Giant tagline */}
-        <h1 className="text-balance font-sans text-6xl leading-none font-black tracking-tight text-foreground md:text-7xl lg:text-8xl xl:text-9xl">
+        <h1
+          ref={headingRef}
+          className="text-balance font-sans text-6xl leading-none font-black tracking-tight text-foreground md:text-7xl lg:text-8xl xl:text-9xl"
+        >
           {taglineLines.map((line, i) => (
             <span key={i} className="block">
               {i === 0 ? (
